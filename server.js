@@ -1,4 +1,4 @@
-const cors = require('cors');
+
 const pg = require('pg');
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -9,7 +9,7 @@ const { Pool } = pg;
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+
 app.use(bodyParser.json());
 
 const jwtSecretKey = 'jwtsecret'; // Ganti dengan kunci rahasia JWT yang kuat
