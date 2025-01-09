@@ -5,11 +5,23 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors()); // Mengatasi masalah CORS
-app.use(express.json()); // Untuk mem-parsing JSON
+// Middleware untuk CORS
+app.use(cors());
+app.use(express.json()); // Untuk mem-parsing body JSON
 
-// Endpoint untuk mengambil data repositori GitHub
+// Endpoint untuk mendapatkan token
+app.get('/api/get-token', (req, res) => {
+    const githubToken = process.env.GITHUB_TOKEN;
+
+    if (!githubToken) {
+        return res.status(500).send('Token GitHub tidak ditemukan di environment variables.');
+    }
+
+    // Mengirimkan token sebagai respon
+    res.json({ token: githubToken });
+});
+
+// Endpoint untuk mendapatkan data repositori GitHub
 app.get('/api/github-data', async (req, res) => {
     try {
         const githubToken = process.env.GITHUB_TOKEN;
